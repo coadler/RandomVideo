@@ -1,7 +1,7 @@
 /*
 
-https://www.youtube.com/watch?v=tE1HDSipRxU                           Steve Irwin             // CURRENT
-http://img.4plebs.org/boards/f/image/1434/92/1434921182936.swf        Do It                   //
+https://www.youtube.com/watch?v=tE1HDSipRxU                           Steve Irwin             //
+http://img.4plebs.org/boards/f/image/1434/92/1434921182936.swf        Do It                   // CURRENT
 http://img.4plebs.org/boards/f/image/1442/53/1442530025364.swf        John Cena Spongebob     //
 http://img.4plebs.org/boards/f/image/1396/24/1396243585761.swf        Smoke Weed              //
 http://img.4plebs.org/boards/f/image/1421/12/1421126458648.swf        2012                    //
