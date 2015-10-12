@@ -1,4 +1,4 @@
-package lights
+package randvid
 
 import (
     //"fmt"
@@ -48,13 +48,14 @@ func RandLink() string{
   return VideoList[vid]
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
-  newVideo := RandLink()
-  http.Redirect(w, r, newVideo, 301)
+func redirectHandler(path string) func(http.ResponseWriter, *http.Request) {
+  return func (w http.ResponseWriter, r *http.Request) {
+    http.Redirect(w, r, path, http.StatusFound)
+  }
 }
 
 func init() {
-    http.HandleFunc("/", Index)
+  http.HandleFunc("/", redirectHandler(RandLink()))
 }
 
-// goapp deploy -application serve-vid app.yaml
+// goapp deploy -application rand-vid app.yaml
