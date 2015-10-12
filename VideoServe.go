@@ -1,7 +1,7 @@
 package lights
 
 import (
-    "fmt"
+    //"fmt"
     "net/http"
     "math/rand"
     "time"
