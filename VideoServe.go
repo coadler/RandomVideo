@@ -57,3 +57,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func init() {
     http.HandleFunc("/", Index)
 }
+
+// goapp deploy -application serve-vid app.yaml
