@@ -5,7 +5,27 @@ import (
     "net/http"
     "math/rand"
     "time"
+    "html/template"
 )
+
+type InsertLink struct {
+  Video string
+}
+
+const body = `
+<html>
+  <head>
+    <title>Colin's Random-Video</title>
+    <meta http-equiv="refresh" content="1; URL='{{.Video}}'" />
+  </head>
+  <body bgcolor="#ffffff">
+    <center>Please wait to be redirected. If you are not redirected please click <a href="{{.Video}}"> here</a>
+    </center>
+  </body>
+</html>
+
+
+`
 
 func RandLink() string{
   VideoList := []string{
@@ -44,18 +64,32 @@ func RandLink() string{
     "http://i.4cdn.org/wsg/1443199345935.webm",
   }
   r := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
-  vid := r.Intn(len(VideoList)) + 1;
+  vid := r.Intn(len(VideoList))
   return VideoList[vid]
 }
 
-func redirectHandler(path string) func(http.ResponseWriter, *http.Request) {
-  return func (w http.ResponseWriter, r *http.Request) {
-    http.Redirect(w, r, path, http.StatusFound)
-  }
+func Index(w http.ResponseWriter, r *http.Request) {
+    w.Header().Add("Content Type", "text/html")
+    tmpl, err := template.New("video").Parse(body)
+    video := RandLink()
+    if err == nil {
+      redirect := InsertLink{video}
+      tmpl.Execute(w, redirect)
+    }
 }
 
+/*
+func redirectHandler() func(http.ResponseWriter, *http.Request) {
+  return func (w http.ResponseWriter, r *http.Request) {
+    //http.Redirect(w, r, path, 302)
+    vid := RandLink()
+    fmt.Fprintf(w, vid)
+  }
+}
+*/
+
 func init() {
-  http.HandleFunc("/", redirectHandler(RandLink()))
+  http.HandleFunc("/", Index)
 }
 
 // goapp deploy -application rand-vid app.yaml
