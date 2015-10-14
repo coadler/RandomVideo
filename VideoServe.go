@@ -192,7 +192,7 @@ func IndexNSFW(w http.ResponseWriter, r *http.Request) {
 
 func init() {
   http.HandleFunc("/sfw", IndexSFW)
-  http.HandleFunc("/.*", IndexNSFW)
+  http.HandleFunc("/", IndexNSFW)
 }
 
 // goapp deploy -application rand-vid app.yaml
