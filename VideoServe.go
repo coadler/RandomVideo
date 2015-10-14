@@ -23,7 +23,6 @@ const body = `
     <center>
       Please wait to be redirected. If you are not redirected please click <a href="{{.Video}}"> here</a></br>
       New Videos are added every day. Check back often!</br>
-      Investigating problems with how random the videos actually are. Results seem extremely skewed.</br>
       Your random number is {{.Rand}}
     </center>
   </body>
