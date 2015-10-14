@@ -1,2 +1,2 @@
 # RandomVideo
-Soon to be master video list for a random link generator
+Redirects you to a random video.

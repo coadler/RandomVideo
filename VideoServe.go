@@ -17,7 +17,7 @@ const body = `
 <html>
   <head>
     <title>Colin's Random-Video</title>
-    <meta http-equiv="refresh" content="1; URL='{{.Video}}'" />
+    <meta http-equiv="refresh" content="2; URL='{{.Video}}'" />
   </head>
   <body bgcolor="#ffffff">
     <center>
@@ -33,7 +33,7 @@ const bodySFW = `
 <html>
   <head>
     <title>Colin's Random-Video</title>
-    <meta http-equiv="refresh" content="1; URL='{{.Video}}'" />
+    <meta http-equiv="refresh" content="2; URL='{{.Video}}'" />
   </head>
   <body bgcolor="#ffffff">
     <center>
@@ -99,7 +99,7 @@ func RandLinkSFW() (string, int){
     //"http://i.4cdn.org/wsg/1443312573923.webm",                             // 48 Hot Boy Dog
     "http://i.4cdn.org/wsg/1440991924939.webm",                             // 49 More Doge
     "http://i.4cdn.org/wsg/1443393958007.webm",                             // 50 Even More Doge
-    //"",                                                                     // 51
+    "http://i.imgur.com/J7VGU2g.gifv",                                    // 51 Kittens + Puppies
   }
   r := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
   vid := r.Intn(len(VideoListSFW))
@@ -159,7 +159,8 @@ func RandLinkNSFW() (string, int){
     "http://i.4cdn.org/wsg/1443312573923.webm",                             // 48 Hot Boy Dog
     "http://i.4cdn.org/wsg/1440991924939.webm",                             // 49 More Doge
     "http://i.4cdn.org/wsg/1443393958007.webm",                             // 50 Even More Doge
-    //"",                                                                     // 51
+    "http://i.imgur.com/J7VGU2g.gifv",                                      // 51 Kittens + Puppies
+    //"",                                                                   // 52
   }
   r := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
   vid := r.Intn(len(VideoListNSFW))
