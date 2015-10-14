@@ -29,6 +29,23 @@ const body = `
 </html>
 `
 
+const bodySFW = `
+<html>
+  <head>
+    <title>Colin's Random-Video</title>
+    <meta http-equiv="refresh" content="1; URL='{{.Video}}'" />
+  </head>
+  <body bgcolor="#ffffff">
+    <center>
+      Please wait to be redirected. If you are not redirected please click <a href="{{.Video}}"> here</a></br>
+      New Videos are added every day. Check back often!</br>
+      Your random number is {{.Rand}} </br>
+      <b>YOU ARE USING THE SFW VERSION</b>
+    </center>
+  </body>
+</html>
+`
+
 func RandLinkSFW() (string, int){
   VideoListSFW := []string{
     "https://www.youtube.com/watch?v=tE1HDSipRxU",                          // 0 Steve Irwin
@@ -151,7 +168,7 @@ func RandLinkNSFW() (string, int){
 
 func IndexSFW(w http.ResponseWriter, r *http.Request) {
   w.Header().Add("Content Type", "text/html")
-  tmpl, err := template.New("video").Parse(body)
+  tmpl, err := template.New("video").Parse(bodySFW)
   video, rand := RandLinkSFW()
   if err == nil {
     redirect := InsertLink{video, rand}
