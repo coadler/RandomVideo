@@ -6,11 +6,21 @@ import (
     "math/rand"
     "time"
     "html/template"
+
+    "appengine"
+    "appengine/datastore"
+    "appengine/user"
 )
 
 type InsertLink struct {
   Video string
   Rand int
+}
+
+type Greeting struct {
+        Author  string
+        Content string
+        Date    time.Time
 }
 
 const body = `
@@ -99,7 +109,8 @@ func RandLinkSFW() (string, int){
     //"http://i.4cdn.org/wsg/1443312573923.webm",                             // 48 Hot Boy Dog
     "http://i.4cdn.org/wsg/1440991924939.webm",                             // 49 More Doge
     "http://i.4cdn.org/wsg/1443393958007.webm",                             // 50 Even More Doge
-    "http://i.imgur.com/J7VGU2g.gifv",                                    // 51 Kittens + Puppies
+    "http://i.imgur.com/J7VGU2g.gifv",                                      // 51 Kittens + Puppies
+    "http://i.imgur.com/ZuMSuvM.gifv",                                      // 52 Doge on Ledge
   }
   r := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
   vid := r.Intn(len(VideoListSFW))
@@ -160,7 +171,8 @@ func RandLinkNSFW() (string, int){
     "http://i.4cdn.org/wsg/1440991924939.webm",                             // 49 More Doge
     "http://i.4cdn.org/wsg/1443393958007.webm",                             // 50 Even More Doge
     "http://i.imgur.com/J7VGU2g.gifv",                                      // 51 Kittens + Puppies
-    //"",                                                                   // 52
+    "http://i.imgur.com/ZuMSuvM.gifv",                                      // 52 Doge on Ledge
+    //"",                                                                   // 53
   }
   r := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
   vid := r.Intn(len(VideoListNSFW))
@@ -191,8 +203,86 @@ func IndexNSFW(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+// guestbookKey returns the key used for all guestbook entries.
+func guestbookKey(c appengine.Context) *datastore.Key {
+        // The string "default_guestbook" here could be varied to have multiple guestbooks.
+        return datastore.NewKey(c, "Guestbook", "default_guestbook", 0, nil)
+}
+
+// [START func_root]
+func root(w http.ResponseWriter, r *http.Request) {
+        c := appengine.NewContext(r)
+        // Ancestor queries, as shown here, are strongly consistent with the High
+        // Replication Datastore. Queries that span entity groups are eventually
+        // consistent. If we omitted the .Ancestor from this query there would be
+        // a slight chance that Greeting that had just been written would not
+        // show up in a query.
+        // [START query]
+        q := datastore.NewQuery("Greeting").Ancestor(guestbookKey(c)).Order("-Date").Limit(10)
+        // [END query]
+        // [START getall]
+        greetings := make([]Greeting, 0, 10)
+        if _, err := q.GetAll(c, &greetings); err != nil {
+                http.Error(w, err.Error(), http.StatusInternalServerError)
+                return
+        }
+        // [END getall]
+        if err := guestbookTemplate.Execute(w, greetings); err != nil {
+                http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+}
+// [END func_root]
+
+var guestbookTemplate = template.Must(template.New("book").Parse(`
+<html>
+  <head>
+    <title>Go Guestbook</title>
+  </head>
+  <body>
+    {{range .}}
+      {{with .Author}}
+        <p><b>{{.}}</b> wrote:</p>
+      {{else}}
+        <p>An anonymous person wrote:</p>
+      {{end}}
+      <pre>{{.Content}}</pre>
+    {{end}}
+    <form action="/sign" method="post">
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Sign Guestbook"></div>
+    </form>
+  </body>
+</html>
+`))
+
+// [START func_sign]
+func sign(w http.ResponseWriter, r *http.Request) {
+        c := appengine.NewContext(r)
+        g := Greeting{
+                Content: r.FormValue("content"),
+                Date:    time.Now(),
+        }
+        if u := user.Current(c); u != nil {
+                g.Author = u.String()
+        }
+        // We set the same parent key on every Greeting entity to ensure each Greeting
+        // is in the same entity group. Queries across the single entity group
+        // will be consistent. However, the write rate to a single entity group
+        // should be limited to ~1/second.
+        key := datastore.NewIncompleteKey(c, "Greeting", guestbookKey(c))
+        _, err := datastore.Put(c, key, &g)
+        if err != nil {
+                http.Error(w, err.Error(), http.StatusInternalServerError)
+                return
+        }
+        http.Redirect(w, r, "/suggest", http.StatusFound)
+}
+// [END func_sign]
+
 func init() {
   http.HandleFunc("/sfw", IndexSFW)
+  http.HandleFunc("/suggest", root)
+  http.HandleFunc("/sign", sign)
   http.HandleFunc("/", IndexNSFW)
 }
 
