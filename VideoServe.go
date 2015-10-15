@@ -23,6 +23,28 @@ type Greeting struct {
         Date    time.Time
 }
 
+var guestbookTemplate = template.Must(template.New("book").Parse(`
+<html>
+  <head>
+    <title>Go Guestbook</title>
+  </head>
+  <body>
+    {{range .}}
+      {{with .Author}}
+        <p><b>{{.}}</b> wrote:</p>
+      {{else}}
+        <p>An anonymous person wrote:</p>
+      {{end}}
+      <pre>{{.Content}}</pre>
+    {{end}}
+    <form action="/sign" method="post">
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Sign Guestbook"></div>
+    </form>
+  </body>
+</html>
+`))
+
 const body = `
 <html>
   <head>
@@ -232,29 +254,6 @@ func root(w http.ResponseWriter, r *http.Request) {
         }
 }
 // [END func_root]
-
-var guestbookTemplate = template.Must(template.New("book").Parse(`
-<html>
-  <head>
-    <title>Go Guestbook</title>
-  </head>
-  <body>
-    {{range .}}
-      {{with .Author}}
-        <p><b>{{.}}</b> wrote:</p>
-      {{else}}
-        <p>An anonymous person wrote:</p>
-      {{end}}
-      <pre>{{.Content}}</pre>
-    {{end}}
-    <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
-  </body>
-</html>
-`))
-
 // [START func_sign]
 func sign(w http.ResponseWriter, r *http.Request) {
         c := appengine.NewContext(r)
