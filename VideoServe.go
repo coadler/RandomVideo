@@ -194,7 +194,34 @@ func RandLinkNSFW() (string, int){
     "http://i.4cdn.org/wsg/1443393958007.webm",                             // 50 Even More Doge
     "http://i.imgur.com/J7VGU2g.gifv",                                      // 51 Kittens + Puppies
     "http://i.imgur.com/ZuMSuvM.gifv",                                      // 52 Doge on Ledge
-    //"",                                                                   // 53
+    //"http://i.4cdn.org/wsg/1445033632154.webm",                             // 53 First Kiss/Life Insurance
+    "http://i.4cdn.org/wsg/1445043480702.webm",                             // 54 Dancing Birdz
+    "http://i.4cdn.org/wsg/1445058535377.webm",                             // 55 Wendy's Commercial
+    "http://i.4cdn.org/wsg/1445068822578.webm",                             // 56 Water Bottle Kick
+    "http://i.4cdn.org/wsg/1445110085377.webm",                             // 57 Pile of Balls
+    "http://i.4cdn.org/wsg/1445110169319.webm",                             // 58 Mimicking Bird
+    "http://i.4cdn.org/wsg/1445110618823.webm",                             // 59 Drum Keyboard
+    "http://i.4cdn.org/wsg/1445110688973.webm",                             // 60 Rolaids
+    "http://i.4cdn.org/wsg/1444956089069.webm",                             // 61 Terrible Email
+    //"http://i.4cdn.org/wsg/1444966036876.webm",                           // 62 Trap + Horse
+    "http://i.4cdn.org/wsg/1444985967218.webm",                             // 63 Racist SpongeBob
+    "http://i.4cdn.org/wsg/1445031045338.webm",                             // 64 White Rapping
+    "http://i.4cdn.org/wsg/1444877206633.webm",                             // 65 Amanda Berry Rap
+    "http://i.4cdn.org/wsg/1444944916366.webm",                             // 66 Ukrainian Army Fail
+    "http://i.4cdn.org/wsg/1444954291292.webm",                             // 67 Trump Dogg
+    "http://i.4cdn.org/wsg/1444681180896.webm",                             // 68 Eminem Bill Cosby
+    "http://i.4cdn.org/wsg/1444687230838.webm",                             // 69 Barbie March
+    "http://i.4cdn.org/wsg/1444691894641.webm",                             // 70 Steal yo Girl
+    "http://i.4cdn.org/wsg/1444697007201.webm",                             // 71 Jigsaw
+    "http://i.4cdn.org/wsg/1444704274634.webm",                             // 72 British Jokes
+    "http://i.4cdn.org/wsg/1444707961154.webm",                             // 73 Grinch Yoga
+    "http://i.4cdn.org/wsg/1444719181433.webm",                             // 74 Chatty Patty
+    "http://i.4cdn.org/wsg/1444728695622.webm",                             // 75 Lizard vs Cat
+    "http://i.4cdn.org/wsg/1444729232374.webm",                             // 76 Raccoon
+    "",                             // 77
+    "",                             // 78
+    "",                             // 79
+    "",                             // 80
   }
   r := rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
   vid := r.Intn(len(VideoListNSFW))
