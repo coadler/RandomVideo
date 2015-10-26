@@ -80,7 +80,7 @@ func RandLink() (string, int){
     "http://i.4cdn.org/wsg/1443254714327.webm",                             // 15 McDonald's Remix
     "http://i.4cdn.org/wsg/1443913579648.webm",                             // 16 Sledge Hammer
     "http://i.4cdn.org/wsg/1444112721405.webm",                             // 17 Frozen Jesse Pinkman
-    "http://i.4cdn.org/wsg/1443246656431.webm",                             // 18 Talking Carl
+    "http://data.desustorage.org/4ch/wsg/image/1441/07/1441076705814.webm", // 18 Talking Carl
     "http://i.4cdn.org/wsg/1443199345935.webm",                             // 19 Mario Head Bang
     "http://i.4cdn.org/wsg/1443246507978.webm",                             // 20 Gin+Juice
     "http://i.4cdn.org/wsg/1444262136311.webm",                             // 21 Tomato -> Fan
@@ -110,7 +110,7 @@ func RandLink() (string, int){
     "http://i.4cdn.org/wsg/1442157620314.webm",                             // 45 Shovel + Head
     "http://i.4cdn.org/wsg/1442218215289.webm",                             // 46 Sly Kid
     "http://i.4cdn.org/wsg/1442384146512.webm",                             // 47 Arriba
-    "http://i.4cdn.org/wsg/1443312573923.webm",                             // 48 Hot Boy Dog
+    "http://data.desustorage.org/4ch/wsg/image/1443/31/1443312573923.webm", // 48 Hot Boy Dog
     "http://i.4cdn.org/wsg/1440991924939.webm",                             // 49 More Doge
     "http://i.4cdn.org/wsg/1443393958007.webm",                             // 50 Even More Doge
     "http://i.imgur.com/J7VGU2g.gifv",                                      // 51 Kittens + Puppies
